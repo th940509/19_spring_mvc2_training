@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <!-- Mapper 파일임을 명시하기 위한 선언문 -->
+
 <!-- namespace는 중복되지 않고 고유해야만 한다. -->
 <mapper namespace="mapper.board">
                                <!-- DTO 파일이 여기로 넘어온다  *생략가능하나 명시함-->
@@ -26,6 +26,12 @@
 			#{content})
 			
 	</insert>
-	
+					<!-- select구문에서는 resultType은 무조건 적어주어야 함. ex) SELECT READ_COUNT 일 경우  resultType = "int" -->
+	<select id="getAllBoard" resultType="com.spring.board.dto.BoardDTO">
+		SELECT
+				*
+		FROM
+				BOARD
+	</select>
 
 </mapper>

@@ -1,5 +1,7 @@
 package com.spring.board.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void insertBoard(BoardDTO bdto) throws Exception {
 			boardDAO.insert(bdto);
+	}
+
+	@Override
+	public List<BoardDTO> getBoardList() throws Exception {
+		return boardDAO.selectAll();
 	}
 
 }

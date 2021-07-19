@@ -1,5 +1,7 @@
 package com.spring.board.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,6 +17,11 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void insert(BoardDTO bdto) throws Exception {
 		sqlSession.insert("mapper.board.insertBoard", bdto); // insert(namespace명.id명 , 매게변수)
+	}
+
+	@Override
+	public List<BoardDTO> selectAll() throws Exception {
+		return sqlSession.selectList("mapper.board.getAllBoard");
 	}
 
 }

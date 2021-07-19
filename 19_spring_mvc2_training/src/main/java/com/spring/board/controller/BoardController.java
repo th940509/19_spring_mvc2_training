@@ -1,9 +1,13 @@
 package com.spring.board.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.board.dto.BoardDTO;
 import com.spring.board.service.BoardService;
@@ -26,5 +30,22 @@ public class BoardController {
 		
 		boardService.insertBoard(bdto);
 		return "board/main";
+	}
+	
+	@RequestMapping(value="/boardList", method=RequestMethod.GET)
+	public String boardList(Model model) throws Exception {
+		
+		List<BoardDTO> boardList = boardService.getBoardList();
+		
+		// model.addAttribute(attribute name, attribute value);
+		model.addAttribute("boardList", boardList);
+		
+		return "board/bList";
+	}
+	
+	@RequestMapping(value="/boardInfo", method=RequestMethod.GET)
+	public String boardInfo(@RequestParam("num") int num) throws Exception {
+							
+		return "board/bInfo";
 	}
 }

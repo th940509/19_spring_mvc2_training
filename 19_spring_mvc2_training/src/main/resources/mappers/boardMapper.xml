@@ -26,6 +26,12 @@
 			#{content})
 			
 	</insert>
-	
+					<!-- select구문에서는 resultType은 무조건 적어주어야 함. ex) SELECT READ_COUNT 일 경우  resultType = "int" -->
+	<select id="getAllBoard" resultType="com.spring.board.dto.BoardDTO">
+		SELECT
+				*
+		FROM
+				BOARD
+	</select>
 
 </mapper>
