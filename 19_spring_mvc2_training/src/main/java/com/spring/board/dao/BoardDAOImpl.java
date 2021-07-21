@@ -21,7 +21,33 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public List<BoardDTO> selectAll() throws Exception {
-		return sqlSession.selectList("mapper.board.getAllBoard");
+		return sqlSession.selectList("mapper.board.getAllBoard"); // selectList 결과 레코드가 여러개 일때 즉 반환이 List일때
+	}
+
+	@Override
+	public void increaseReadCount(int num) throws Exception {
+			sqlSession.update("mapper.board.increaseReadCount", num);
+	}
+
+	@Override
+	public BoardDTO selectOne(int num) throws Exception {
+		return sqlSession.selectOne("mapper.board.getOneBoard",num); // selectOne 결과 레코드가 한개일떄
+	}
+
+	@Override
+	public BoardDTO validateUserCheck(BoardDTO bdto) throws Exception { //mybatis에는 여러개를 넘길 수가 없으므로 주로 압축된 것 하나만 넘김
+	
+		return sqlSession.selectOne("mapper.board.validateUserCheck",bdto);
+	}
+
+	@Override
+	public void update(BoardDTO bdto) throws Exception {
+		sqlSession.update("mapper.board.updateBoard", bdto);
+	}
+
+	@Override
+	public void delete(int num) throws Exception {
+		sqlSession.delete("mapper.board.deleteBoard", num);
 	}
 
 }

@@ -24,4 +24,39 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.selectAll();
 	}
 
-}
+	@Override // 조회수 증가, 한개의 게시글 가져오기 2개의 기능
+	public BoardDTO getOneBoard(int num) throws Exception {
+		boardDAO.increaseReadCount(num);
+		return boardDAO.selectOne(num);
+	}
+
+	@Override
+	public boolean updateBoard(BoardDTO bdto) throws Exception {
+		boolean isSucceed = false;
+		
+		if(boardDAO.validateUserCheck(bdto) != null) {
+			boardDAO.update(bdto);
+			isSucceed = true;
+		}
+		
+		return isSucceed;
+	}
+
+	@Override
+	public boolean deleteBoard(BoardDTO bdto) throws Exception {
+		boolean isSucceed = false;
+		
+		if(boardDAO.validateUserCheck(bdto) != null) {
+			boardDAO.delete(bdto.getNum());
+			isSucceed = true;
+		}
+		
+		return isSucceed;
+	}
+
+} 
+// service           dao                mapper
+//   1:n              1          :        1
+//                    1          :        1
+//                    1          :        1
+// 여러개의 dao를 1개 메서드에서 사용할 수 있음.

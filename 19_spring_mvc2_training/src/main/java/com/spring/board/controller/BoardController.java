@@ -20,6 +20,11 @@ public class BoardController {
 	
 	// value  : url 주소 명시
 	// method : 요청방식을 명시 (생략시에 GET,POST를 모두 처리)
+	@RequestMapping(value="/" , method=RequestMethod.GET)
+	public String main() {
+		return "board/main";
+	}
+	
 	@RequestMapping(value="/boardWrite", method=RequestMethod.GET)
 	public String boardWrite() {
 		return "board/bWrite"; // servlet-context.xml에 명시된 대로 포워딩 시킬 jsp파일을 작성해준다.
@@ -44,8 +49,42 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/boardInfo", method=RequestMethod.GET)
-	public String boardInfo(@RequestParam("num") int num) throws Exception {
-							
+	public String boardInfo(@RequestParam("num") int num, Model model) throws Exception {
+		
+		BoardDTO bdto = boardService.getOneBoard(num);
+		
+		model.addAttribute("bdto", bdto);
+		
 		return "board/bInfo";
+	}
+	
+	@RequestMapping(value="/boardUpdate", method=RequestMethod.GET)
+	public String boardUpdate(@RequestParam("num") int num, Model model) throws Exception {
+		model.addAttribute("bdto",boardService.getOneBoard(num));
+		return "board/bUpdate";
+	}
+	
+	@RequestMapping(value="/boardUpdate", method=RequestMethod.POST)
+	public String boardUpdate(BoardDTO bdto, Model model) throws Exception {
+		
+		if(boardService.updateBoard(bdto)) model.addAttribute("success",true);
+		else                               model.addAttribute("success",false);
+		
+		return "board/bUpdatePro";
+	}           // model 객체 사용 시 controller에서 data를 view로 뿌린다 (jsp : requaest.setAttribute 와 비슷한 기능)
+	            // 반환이 된 곳에서 model.addAttribute의 data를 ${}형태로 사용
+	
+	@RequestMapping(value="/boardDelete", method=RequestMethod.GET)
+	public String boardDelete(@RequestParam("num") int num, Model model) throws Exception {
+		model.addAttribute("bdto" , boardService.getOneBoard(num));
+		return "board/bDelete";
+	}
+	
+	@RequestMapping(value="/boardDelete" , method=RequestMethod.POST)
+	public String boardDelete(BoardDTO bdto, Model model) throws Exception {
+		if(boardService.deleteBoard(bdto)) model.addAttribute("success", true);
+		else                               model.addAttribute("success", false);
+		
+		return "board/bDeletePro";
 	}
 }

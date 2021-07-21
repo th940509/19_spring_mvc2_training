@@ -27,11 +27,56 @@
 			
 	</insert>
 					<!-- select구문에서는 resultType은 무조건 적어주어야 함. ex) SELECT READ_COUNT 일 경우  resultType = "int" -->
+					<!-- select할 것의 타입 -->
 	<select id="getAllBoard" resultType="com.spring.board.dto.BoardDTO">
 		SELECT
 				*
 		FROM
 				BOARD
 	</select>
+	
+	<update id="increaseReadCount" parameterType="int">
+		 UPDATE
+		 		BOARD
+		 SET
+		 		READ_COUNT = READ_COUNT + 1
+		 WHERE
+		 		NUM = #{num}
+	</update>
+	
+	<select id="getOneBoard" resultType="com.spring.board.dto.BoardDTO" parameterType="int">
+		SELECT
+				*
+		FROM
+				BOARD
+		WHERE
+				NUM = #{num}
+	</select> <!-- 비밀번호 확인 -->
+		
+	<select id="validateUserCheck" resultType="com.spring.board.dto.BoardDTO" parameterType="com.spring.board.dto.BoardDTO"> <!-- 비밀번호 확인 -->
+		SELECT
+				*
+		FROM
+				BOARD
+		WHERE
+				NUM = #{num} AND PASSWORD = #{password}
+	</select>
+	
+	<update id="updateBoard" parameterType="com.spring.board.dto.BoardDTO">
+		UPDATE
+				BOARD
+		SET
+				SUBJECT = #{subject},
+				CONTENT = #{content}
+		WHERE
+				NUM = #{num}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM
+				BOARD
+		WHERE
+				NUM = #{num}
+	</delete>
 
 </mapper>
