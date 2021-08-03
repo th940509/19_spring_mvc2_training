@@ -49,7 +49,7 @@
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">BoardEx02</a> <!-- index.html 현재 없으므로 요류 -->
+        <a class="navbar-brand" href="index.html">BoardEx02</a> <!-- index.html 현재 없으므로 오류 -->
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
