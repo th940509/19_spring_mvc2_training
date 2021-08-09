@@ -98,9 +98,9 @@
 	<insert id="insertBoard">
 		INSERT INTO 
 				BOARD_ADVANCE 
-		VALUES (
+		VALUES (	
 				(SELECT 
-					IFNULL(MAX(NUM) + 1 , 1) <!-- null이라면 조건2 (1) 실행, null이 아니라면 조건1 (MAX(NUM) +1) 실행 -->
+					IFNULL(MAX(NUM) + 1 , 1) <!-- IFNULL(컬럼명(Null이 아닐때 실행), 컬럼명이 NULL일경우 실행되는 데이터) -->
 				FROM 
 					BOARD_ADVANCE AS B), 
 				#{writer}, 

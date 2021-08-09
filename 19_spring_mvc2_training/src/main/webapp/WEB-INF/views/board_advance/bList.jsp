@@ -166,15 +166,15 @@
                                   			<c:if test="${startPage gt 10 }"> <!-- startPage가 10보다 클때 --> <!-- *이전 버튼 -->
                                    			<li class="paginate_button page-item previous" id="dataTable_previous">
                                    				<a href="${contextPath }/boardAdvance/boardList?currentPageNumber=${startPage - 10} & onePageViewCount=${onePageViewCount} & searchKeyword=${searchKeyword} & searchWord=${searchWord}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-                                   			</li>
+                                   			</li>                                                <!-- *currentPageNumber : 현재 페이지 -->
                                   			</c:if>
-                                  			<c:forEach var="i" begin="${startPage}" end="${endPage }" > <!-- startPage가 10보다 작을 떄, startPage = 1 /endPage = startpage + 9 controller에서 가지고 옴 -->
+                                  			<c:forEach var="i" begin="${startPage}" end="${endPage }" > <!-- *숫자버튼 -->
                                    			<li class="paginate_button page-item">
                                    				<a href="${contextPath }/boardAdvance/boardList?currentPageNumber=${i}&onePageViewCount=${onePageViewCount}&searchKeyword=${searchKeyword}&searchWord=${searchWord}" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">${i}</a>
                                    			</li>
                                    			</c:forEach>
-                                  			<c:if test="${endPage le totalBoardCount && endPage ge 10}">  <!-- endPage가 totalBoardCount보다 작으면서 endPage가 10보다 클때 --> <!-- *다음 버튼 -->
-                                  			<!-- 예/ startPage = 2 / endPage = 11 -->
+                                  			<c:if test="${endPage le totalBoardCount && endPage ge 10}">  <!-- endPage가 totalBoardCount보다 작거나 같고 and endPage가 10보다 크거나 같을때 --> <!-- *다음 버튼 -->
+                                  			<!-- 예/ startPage = 1 / endPage = 10 -->
                                    			<li class="paginate_button page-item next" id="dataTable_next">
                                    				<a href="${contextPath }/boardAdvance/boardList?currentPageNumber=${startPage + 10}&onePageViewCount=${onePageViewCount}&searchKeyword=${searchKeyword}&searchWord=${searchWord}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
                                    			</li>                                               
